@@ -35,5 +35,5 @@ class Chitfund:
         for i,member in enumerate(self.chit_list):
             print(f"{i+1}.", member.name)
     def lottery(self):
-        winner = randint(0,19)
+        winner = randint(0,len(self.chit_list)-1)
         print("Name: ", self.chit_list[winner].name)

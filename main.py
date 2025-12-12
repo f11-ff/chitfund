@@ -1,4 +1,4 @@
-from blueprint import *
+from src.blueprint import *
 
 """
 features:
