@@ -1,3 +1,4 @@
+from random import randint
 
 class Member:
     def __init__(self,name,chit_id,month_taken,note):
@@ -14,6 +15,7 @@ class Member:
         print("Updated")
 
 class Chitfund:
+    month = 0
     def __init__(self,chit_id):
         self.chit_id = chit_id
         self.chit_list = []
@@ -22,7 +24,7 @@ class Chitfund:
         while True:
             name = input("Enter name: ")
             if name in self.names:
-                print("Name exists! Please check the name and/or modify it slightly.\nThank you.")
+                print("Name exists! Please check the name and/or modify it slightly. Thank you.")
             else:
                 self.names.add(name)
                 break
@@ -31,6 +33,7 @@ class Chitfund:
     def display_members(self):
         print("Members:")
         for i,member in enumerate(self.chit_list):
-            print(i,member.name, " ", end = "")
-        print("\n---")
-
+            print(f"{i+1}.", member.name)
+    def lottery(self):
+        winner = randint(0,19)
+        print("Name: ", self.chit_list[winner].name)
