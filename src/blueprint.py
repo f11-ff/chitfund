@@ -1,18 +1,25 @@
 from datetime import datetime
-
+from random import choice
 
 
 class ChitManager:
     pass
 class Chit:
     total_chit_lists = 0
+
+    @staticmethod
+    def swap(a,b):
+        temp = a
+        a = b
+        b = temp
+        return
     def __init__(self,chit_amount):
         self.chit_amount = chit_amount
         self.chit_list = dict()
         self.creation_time = str(datetime.now())
         self.names_set = set() #Used for quickly checking if a name already exists.
         self.counter = 1 #Counts Members objects, sequentially store members
-
+        self.not_winners = []
         Chit.total_chit_lists += 1
     def add_member(self):
         while True:
@@ -24,7 +31,9 @@ class Chit:
                 break
         print("Adding Member ", name)
         member = Member(name)
+        member.id = self.counter
         self.chit_list[self.counter] = member
+        self.not_winners.append(member)
         self.counter  += 1
     def display_members(self):
         print("ChitList ", self.creation_time)
@@ -43,15 +52,28 @@ class Chit:
             return
         note = input(f"Enter note for {member.name}: ")
         member.note = note
+    def lottery(self):
+        winner = choice(self.not_winners)
+        print("Winner is \nId: ", winner.id, "Name: ", winner.name)
+        Chit.swap(winner.id,-1)
+        self.not_winners.pop()
 class Member:
     def __init__(self,name,note = ""):
-        self.name = name;
-        self.note = note;
+        self.name = name
+        self.note = note
+        self.id = -1
         self.creation_time = str(datetime.now())
 
 chitlist = Chit(1)
 chitlist.add_member()
 chitlist.add_member()
+chitlist.add_member()
+chitlist.add_member()
+chitlist.add_member()
+chitlist.add_member()
+chitlist.add_member()
 chitlist.display_members()
 chitlist.add_note(1)
 chitlist.display_note(1)
+chitlist.lottery()
+print(len(chitlist.not_winners))
