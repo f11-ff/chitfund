@@ -1,19 +1,57 @@
+from datetime import datetime
+
+
+
 class ChitManager:
     pass
 class Chit:
-    pass
+    total_chit_lists = 0
+    def __init__(self,chit_amount):
+        self.chit_amount = chit_amount
+        self.chit_list = dict()
+        self.creation_time = str(datetime.now())
+        self.names_set = set() #Used for quickly checking if a name already exists.
+        self.counter = 1 #Counts Members objects, sequentially store members
+
+        Chit.total_chit_lists += 1
+    def add_member(self):
+        while True:
+            name = input("Enter name: ")
+            if name in self.names_set:
+                print("Name exists! Please check the name and/or modify it.")
+            else:
+                self.names_set.add(name)
+                break
+        print("Adding Member ", name)
+        member = Member(name)
+        self.chit_list[self.counter] = member
+        self.counter  += 1
+    def display_members(self):
+        print("ChitList ", self.creation_time)
+        for i in range(1,len(self.chit_list) + 1):
+            print(i, " ", self.chit_list.get(i).name)
+    def display_note(self, id):
+        member = self.chit_list.get(id)
+        if not member:
+            print("Invalid")
+            return
+        print("Note for ", member.name, " is ", member.note)
+    def add_note(self, id):
+        member = self.chit_list.get(id)
+        if not member:
+            print("Invalid id")
+            return
+        note = input(f"Enter note for {member.name}: ")
+        member.note = note
 class Member:
     def __init__(self,name,note = ""):
         self.name = name;
         self.note = note;
-    def display_name(self):
-        print("Name: ", self.name)
-    def display_note(self):
-        if not self.note:
-            print("No note")
-        print("Note: ",self.note)
-    def update_note(self,note):
-        print("Updating note to ", note)
-        self.note = note
-    
+        self.creation_time = str(datetime.now())
 
+chitlist = Chit(1)
+chitlist.add_member()
+chitlist.add_member()
+chitlist.display_members()
+chitlist.add_note(1)
+chitlist.display_note(1)
