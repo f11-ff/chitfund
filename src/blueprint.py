@@ -3,15 +3,20 @@ from random import choice
 
 
 class ChitManager:
-    pass
+    @staticmethod
+    def tally(chit_amount):
+        if(chit_amount == 1 or chit_amount == 2):
+            return 20 #Standard for my use case
+        elif(chit_amount == 5):
+            return 25
+        else:
+            return 0
 class Chit:
     total_chit_lists = 0
-
-    @staticmethod
-    def swap(a,b):
-        temp = a
-        a = b
-        b = temp
+    def remove(self,id):
+        self.not_winners[id] = self.not_winners[-1]
+        if not len(self.not_winners) == 0:
+            self.not_winners.pop()  
         return
     def __init__(self,chit_amount):
         self.chit_amount = chit_amount
@@ -19,7 +24,10 @@ class Chit:
         self.creation_time = str(datetime.now())
         self.names_set = set() #Used for quickly checking if a name already exists.
         self.counter = 1 #Counts Members objects, sequentially store members
+        #self.winners = [i for i in range(1,ChitManager.tally(chit_amount) + 1)] dropped
+        self.winners_map = dict()
         self.not_winners = []
+        self.month = 1
         Chit.total_chit_lists += 1
     def add_member(self):
         while True:
@@ -39,6 +47,8 @@ class Chit:
         print("ChitList ", self.creation_time)
         for i in range(1,len(self.chit_list) + 1):
             print(i, " ", self.chit_list.get(i).name)
+    def display_creation_time(self):
+        print(self.creation_time)
     def display_note(self, id):
         member = self.chit_list.get(id)
         if not member:
@@ -55,8 +65,23 @@ class Chit:
     def lottery(self):
         winner = choice(self.not_winners)
         print("Winner is \nId: ", winner.id, "Name: ", winner.name)
-        Chit.swap(winner.id,-1)
-        self.not_winners.pop()
+        #print("List ", self.not_winners, "id ", winner.id)
+        i = self.not_winners.index(winner)
+        self.remove(i)
+        #print("List ", self.not_winners, "id ", winner.id)
+        self.winners_map[self.month] = winner
+        self.month += 1  
+    def set_month(self):
+        for i in self.not_winners:
+            print("ID: ", i.id, " Name ",i.name)
+        print("Select a member")
+        id = int(input("Enter id: "))
+        winner = self.chit_list[id]
+        self.remove(id)
+        print("Set ",winner.name, " as winner")
+        self.winners_map[self.month] = winner
+        self.month += 1
+
 class Member:
     def __init__(self,name,note = ""):
         self.name = name
@@ -64,16 +89,30 @@ class Member:
         self.id = -1
         self.creation_time = str(datetime.now())
 
+
+
+
 chitlist = Chit(1)
 chitlist.add_member()
 chitlist.add_member()
 chitlist.add_member()
 chitlist.add_member()
 chitlist.add_member()
-chitlist.add_member()
-chitlist.add_member()
+
+#chitlist.display_creation_time()
 chitlist.display_members()
-chitlist.add_note(1)
-chitlist.display_note(1)
+#chitlist.add_note(1)
+#chitlist.display_note(1)
 chitlist.lottery()
+print([i.name for i in chitlist.not_winners])
+chitlist.lottery()
+print([i.name for i in chitlist.not_winners])
+
+chitlist.lottery()
+print([i.name for i in chitlist.not_winners])
+
+chitlist.lottery()
+print([i.name for i in chitlist.not_winners])
+
+
 print(len(chitlist.not_winners))
