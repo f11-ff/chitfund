@@ -77,7 +77,7 @@ class Chit:
         print("Select a member")
         id = int(input("Enter id: "))
         winner = self.chit_list[id]
-        self.remove(id)
+        self.remove(id-1)
         print("Set ",winner.name, " as winner")
         self.winners_map[self.month] = winner
         self.month += 1
@@ -92,27 +92,28 @@ class Member:
 
 
 
-chitlist = Chit(1)
-chitlist.add_member()
-chitlist.add_member()
-chitlist.add_member()
-chitlist.add_member()
-chitlist.add_member()
+if __name__ == "__main__": #Temporary: Testing/Debugging 
+    chitlist = Chit(1)
+    chitlist.add_member()
+    chitlist.add_member()
+    chitlist.add_member()
+    chitlist.add_member()
+    chitlist.add_member()
 
-#chitlist.display_creation_time()
-chitlist.display_members()
-#chitlist.add_note(1)
-#chitlist.display_note(1)
-chitlist.lottery()
-print([i.name for i in chitlist.not_winners])
-chitlist.lottery()
-print([i.name for i in chitlist.not_winners])
+    #chitlist.display_creation_time()
+    chitlist.display_members()
+    #chitlist.add_note(1)
+    #chitlist.display_note(1)
+    chitlist.lottery()
+    print([i.name for i in chitlist.not_winners])
+    chitlist.lottery()
+    print([i.name for i in chitlist.not_winners])
 
-chitlist.lottery()
-print([i.name for i in chitlist.not_winners])
+    chitlist.lottery()
+    print([i.name for i in chitlist.not_winners])
 
-chitlist.lottery()
-print([i.name for i in chitlist.not_winners])
+    chitlist.lottery()
+    print([i.name for i in chitlist.not_winners])
 
 
-print(len(chitlist.not_winners))
+    print(len(chitlist.not_winners))
