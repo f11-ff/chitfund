@@ -47,7 +47,6 @@ class Chit:
         for i in range(1,len(self.chit_list) + 1):
             print(i, " ", self.chit_list.get(i).name)
     def current_month_pay(self):
-        self.display_members()
         chit_amount = self.chit_amount * 100000
         total_people = ChitManager.tally(self.chit_amount)
         for i in range(1,len(self.chit_list)+1):
