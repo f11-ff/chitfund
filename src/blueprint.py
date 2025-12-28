@@ -11,6 +11,16 @@ class ChitManager:
             return 25
         else:
             return 0
+    def __init__(self):
+        self.chitlists = []
+    def create_chitlist(self):
+        chit_amount = int(input("Enter 1 or 2 or 2.5 or 5: "))
+        chitlist = Chit(chit_amount)
+        self.chitlists.append(chitlist)
+        print("Chitlist created successfully, creation time: ", chitlist.creation_time)
+    def display_chitlists(self):
+        for i,chitlist in enumerate(self.chitlists):
+            print(i+1,". chitlist ", chitlist.creation_time)
 class Chit:
     total_chit_lists = 0
     def __init__(self,chit_amount):
@@ -99,24 +109,8 @@ class Member:
 
 
 if __name__ == "__main__": #Temporary: Testing/Debugging 
-    chitlist = Chit(1)
-    chitlist.add_member()
-    chitlist.add_member()
-    chitlist.add_member()
-    chitlist.add_member()
-    chitlist.add_member()
-
-    #chitlist.display_creation_time()
-    chitlist.display_members()
-    #chitlist.add_note(1)
-    #chitlist.display_note(1)
-    chitlist.lottery()
-    print([i.name for i in chitlist.not_winners])
-    chitlist.lottery()
-    print([i.name for i in chitlist.not_winners])
-
-    chitlist.set_month()
-    chitlist.current_month_pay()
-
-    print(len(chitlist.not_winners))
-    
+    chit_manager = ChitManager()
+    chit_manager.create_chitlist()    
+    chit_manager.create_chitlist()
+    chit_manager.create_chitlist()    
+    chit_manager.display_chitlists()
