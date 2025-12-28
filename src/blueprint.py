@@ -25,13 +25,13 @@ class Chit:
     total_chit_lists = 0
     def __init__(self,chit_amount):
         self.chit_amount = chit_amount
-        self.chit_list = dict()
-        self.creation_time = str(datetime.now())
+        self.chit_list = dict() #dict to store members: sequentially maps members from 1 to n in the order of creation
+        self.creation_time = str(datetime.now()) #Stores Creation Time
         self.names_set = set() #Used for quickly checking if a name already exists.
         self.counter = 1 #Counts Members objects, sequentially store members
         self.winners_map = dict() #maps month (key) to winner (member object)
         self.not_winners = [] #Holds member objects who haven't won yet. Note: total months - current month = len(not_winners) is a necessary condition
-        self.month = 1
+        self.month = 1 #Keep tracks of current month
         Chit.total_chit_lists += 1
     def remove(self,i):
         self.not_winners[i] = self.not_winners[-1]
