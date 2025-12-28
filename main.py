@@ -10,7 +10,7 @@ def main():
     choice = 0
     while True:
         print("---")
-        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n444.Exit")
+        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n6. View creation time\n7. View outstading fees\n444.Exit")
         print("---")
         choice = input()
 
@@ -25,6 +25,10 @@ def main():
                 chitlist_1.lottery()
             case '5':
                 chitlist_1.set_month()
+            case '6':
+                chitlist_1.display_creation_time()
+            case '7':
+                chitlist_1.current_month_pay()
             case '444':
                 break
             case _:
