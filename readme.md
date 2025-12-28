@@ -5,7 +5,6 @@ This is a Chit Management app, currently the version of the project I am working
 After completing the CLI version
 Future Plans: 
     Switch to django, add a db
----
 # Current Features:
    - Create Members
    - Display all Members
