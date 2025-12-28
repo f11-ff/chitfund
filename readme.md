@@ -1,8 +1,18 @@
-Simple ChitFund management
+### Simple ChitFund management
 
-features:
-Create members
-...
+This is a Chit Management app, currently the version of the project I am working is CLI ONLY with no persistent storage.
 
-more to come soon!
+After completing the CLI version
+Future Plans: 
+    Switch to django, add a db
+---
+# Current Features:
+   - Create Members
+   - Display all Members
+   - Set Winners for current month
+   - Randomly select a winner (lottery)
+   - Display outstanding dues for current month for all members
+   - View Creation Time
+    ..
+More to come!
 
