@@ -33,8 +33,8 @@ class Chit:
         self.not_winners = [] #Holds member objects who haven't won yet. Note: total months - current month = len(not_winners) is a necessary condition
         self.month = 1
         Chit.total_chit_lists += 1
-    def remove(self,id):
-        self.not_winners[id] = self.not_winners[-1]
+    def remove(self,i):
+        self.not_winners[i] = self.not_winners[-1]
         if not len(self.not_winners) == 0:
             self.not_winners.pop()  
         return
