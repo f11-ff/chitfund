@@ -48,12 +48,15 @@ class Chit:
             print(i, " ", self.chit_list.get(i).name)
     def current_month_pay(self):
         self.display_members()
-        for i in self.chit_list:
-            if i in self.not_winners:
-                current_month_pay = (self.chit_amount * 100000) / ChitManager.tally(self.chit_amount)
+        chit_amount = self.chit_amount * 100000
+        total_people = ChitManager.tally(self.chit_amount)
+        for i in range(1,len(self.chit_list)+1):
+            member = self.chit_list[i]
+            if member in self.not_winners:
+                current_month_pay = chit_amount/total_people
             else:
-                current_month_pay = ((self.chit_amount * 100000) / ChitManager.tally(self.chit_amount)) * 1.01
-            print(i.id, " ", i.name, ": ", current_month_pay)
+                current_month_pay = chit_amount/total_people + (chit_amount * 0.01)
+            print(member.id, " ", member.name, ": ", current_month_pay)
     def display_creation_time(self):
         print(self.creation_time)
     def display_note(self, id):
@@ -113,11 +116,8 @@ if __name__ == "__main__": #Temporary: Testing/Debugging
     chitlist.lottery()
     print([i.name for i in chitlist.not_winners])
 
-    chitlist.lottery()
-    print([i.name for i in chitlist.not_winners])
-
-    chitlist.lottery()
-    print([i.name for i in chitlist.not_winners])
-
+    chitlist.set_month()
+    chitlist.current_month_pay()
 
     print(len(chitlist.not_winners))
+    
