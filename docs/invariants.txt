@@ -1,0 +1,14 @@
+
+Invariants: Conditions for a valid system
+
+Length of not winners must be equal to the difference between total months and the current month
+Each month has exactly one winner
+Member cannot win twice
+Month increases only after valid winner assignment
+Member Names must be unique
+The payout for the Manager is constant (although not shown here)
+The outstanding dues for member changes only after winning, and it increases only by 1 percent the chit amount
+Each month maps exactly to only one winner
+Current Month is always less than or equal to the total member count
+
+
