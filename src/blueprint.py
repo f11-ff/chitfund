@@ -34,10 +34,10 @@ class Chit:
     total_chit_lists = 0
     def __init__(self,chit_amount):
         self.chit_amount = chit_amount
-        self.chit_list = dict() #dict to store members: sequentially maps members from 1 to n in the order of creation
+        self.chitlist = dict() #dict to store members: sequentially maps members from 1 to n in the order of creation
         self.creation_time = str(datetime.now()) #Stores Creation Time
         self.names_set = set() #Used for quickly checking if a name already exists.
-        self.counter = 1 #Counts Members objects, sequentially store members
+        self.counter = 1 #Counts Members objects, use: sequentially store members
         self.winners_map = dict() #maps month (key) to winner (member object)
         self.not_winners = [] #Holds member objects who haven't won yet. Note: total months - current month = len(not_winners) is a necessary condition
         self.month = 1 #Keep tracks of current month
@@ -45,10 +45,10 @@ class Chit:
     def remove(self,i):
         self.not_winners[i] = self.not_winners[-1]
         if not len(self.not_winners) == 0:
-            self.not_winners.pop()  
+            self.not_winners.pop()
         return
     def add_member(self):
-        if len(self.chit_list) >= ChitManager.tally(self.chit_amount):
+        if len(self.chitlist) >= ChitManager.tally(self.chit_amount):
             print("Max Member Reached.. Returning..")
             return
         while True:
@@ -61,18 +61,24 @@ class Chit:
         print("Adding Member ", name)
         member = Member(name)
         member.id = self.counter
-        self.chit_list[self.counter] = member
+        self.chitlist[self.counter] = member
         self.not_winners.append(member)
         self.counter  += 1
     def display_members(self):
         print("ChitList ", self.creation_time)
-        for i in range(1,len(self.chit_list) + 1):
-            print(i, " ", self.chit_list.get(i).name)
+        if not self.chitlist:
+            print("Chitlist is empty.")
+            return
+        for i in range(1,len(self.chitlist) + 1):
+            print(i, " ", self.chitlist.get(i).name)
     def current_month_pay(self):
         chit_amount = self.chit_amount * 100000
         total_people = ChitManager.tally(self.chit_amount)
-        for i in range(1,len(self.chit_list)+1):
-            member = self.chit_list[i]
+        if not self.chitlist:
+            print("Chitlist is empty.")
+            return
+        for i in range(1,len(self.chitlist)+1):
+            member = self.chitlist[i]
             if member in self.not_winners:
                 current_month_pay = chit_amount/total_people
             else:
@@ -81,31 +87,37 @@ class Chit:
     def display_creation_time(self):
         print(self.creation_time)
     def display_note(self, id):
-        member = self.chit_list.get(id)
+        member = self.chitlist.get(id)
         if not member:
-            print("Invalid")
+            print("Invalid ID")
             return
         print("Note for ", member.name, " is ", member.note)
     def add_note(self, id):
-        member = self.chit_list.get(id)
+        member = self.chitlist.get(id)
         if not member:
-            print("Invalid id")
+            print("Invalid ID")
             return
         note = input(f"Enter note for {member.name}: ")
         member.note = note
     def lottery(self):
+        if not self.not_winners:
+            print("There are no members left to win.")
+            return
+        winner = choice(self.not_winners)
         print("Winner is \nId: ", winner.id, "Name: ", winner.name)
         i = self.not_winners.index(winner)
-        winner = choice(self.not_winners)
         self.remove(i)
         self.winners_map[self.month] = winner
         self.month += 1  
     def set_month(self):
+        if not self.not_winners:
+            print("There are no members left to win.")
+            return
         for i in self.not_winners:
             print("ID: ", i.id, " Name ",i.name)
         print("Select a member")
         id = int(input("Enter id: "))
-        winner = self.chit_list[id]
+        winner = self.chitlist[id]
         i = self.not_winners.index(winner)
         self.remove(i)
         print("Set ",winner.name, " as winner")
