@@ -27,9 +27,10 @@ class ChitManager:
     def display_chitlists(self):
         if not self.chitlists:
             print("No chitlists created.")
-            return
+            return 0
         for i,chitlist in enumerate(self.chitlists):
             print(i+1,". chitlist ", chitlist.creation_time)
+        return 1
 class Chit:
     total_chit_lists = 0
     def __init__(self,chit_amount):
