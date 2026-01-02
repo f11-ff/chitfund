@@ -47,7 +47,9 @@ def main():
             case '2':
                 chit_manager.display_chitlists()
             case '3':
-                chit_manager.display_chitlists()
+                if not chit_manager.display_chitlists():
+                    print("There is no list please make one.")
+                    continue
                 i = int(input("Enter an id (left index is id): "))
                 chitlist_operations(chit_manager.chitlists[i-1])
             case '444':
