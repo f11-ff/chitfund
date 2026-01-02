@@ -14,11 +14,20 @@ class ChitManager:
     def __init__(self):
         self.chitlists = []
     def create_chitlist(self):
-        chit_amount = int(input("Enter 1 or 2 or 2.5 or 5: "))
+        try:
+            chit_amount = int(input("Enter 1 or 2 or 2.5 or 5: "))
+            if not ChitManager.tally(chit_amount):
+               return
+        except ValueError:
+            print("Invalid Value. Returning..")
+            return
         chitlist = Chit(chit_amount)
         self.chitlists.append(chitlist)
         print("Chitlist created successfully, creation time: ", chitlist.creation_time)
     def display_chitlists(self):
+        if not self.chitlists:
+            print("No chitlists created.")
+            return
         for i,chitlist in enumerate(self.chitlists):
             print(i+1,". chitlist ", chitlist.creation_time)
 class Chit:
@@ -39,6 +48,9 @@ class Chit:
             self.not_winners.pop()  
         return
     def add_member(self):
+        if len(self.chit_list) >= ChitManager.tally(self.chit_amount):
+            print("Max Member Reached.. Returning..")
+            return
         while True:
             name = input("Enter name: ")
             if name in self.names_set:
@@ -82,9 +94,9 @@ class Chit:
         note = input(f"Enter note for {member.name}: ")
         member.note = note
     def lottery(self):
-        winner = choice(self.not_winners)
         print("Winner is \nId: ", winner.id, "Name: ", winner.name)
         i = self.not_winners.index(winner)
+        winner = choice(self.not_winners)
         self.remove(i)
         self.winners_map[self.month] = winner
         self.month += 1  
