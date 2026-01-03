@@ -2,14 +2,18 @@ from src.blueprint import *
 
 chit_manager = ChitManager()
 def add_members(chitlist):
-    n = int(input("Enter the number of members: "))
+    try:
+        n = int(input("Enter the number of members: "))
+    except ValueError:
+        print("Invalid value. ")
+        return
     for i in range(n):
         chitlist.add_member()
 
 def chitlist_operations(chitlist):
     while True:
         print("---")
-        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n6. View creation time\n7. View outstading fees\n444.Exit")
+        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n6. View creation time\n7. View outstading fees\n8. Add/update note\n9. Display note\n444.Exit")
         print("---")
         choice = input()
 
@@ -28,6 +32,12 @@ def chitlist_operations(chitlist):
                 chitlist.display_creation_time()
             case '7':
                 chitlist.current_month_pay()
+            case '8':
+                chitlist.display_members()
+                chitlist.add_note()
+            case '9':
+                chitlist.display_members()
+                chitlist.display_note()
             case '444':
                 return
             case _:
@@ -38,7 +48,7 @@ def main():
     choice = 0
     while True:
         print("---")
-        print("1. Create ChitList\n2. Display Chitlists\n3. Chitlist Ops.\n444.Exit")
+        print("1. Create ChitList\n2. Display Chitlists\n3. Chitlist Ops.\n4. Delete Chitlist\n444.Exit")
         print("---")
         choice = input()
         match(choice):
@@ -52,6 +62,8 @@ def main():
                     continue
                 i = int(input("Enter an id (left index is id): "))
                 chitlist_operations(chit_manager.chitlists[i-1])
+            case '4':
+                chit_manager.delete_chitlist()
             case '444':
                 break
 
