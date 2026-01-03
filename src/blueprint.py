@@ -110,6 +110,14 @@ class Chit:
             return
         print("Note for ", member.name, " is ", member.note)
     def add_note(self):
+        if(len(self.chitlist) < 1):
+            print("There are no members.")
+            return
+        try:
+            id = int(input("Enter an ID: "))
+        except ValueError:
+            print("Invalid input.")
+            return
         member = self.chitlist.get(id)
         if not member:
             print("Invalid ID")
