@@ -95,13 +95,7 @@ class Chit:
             print(member.id, " ", member.name, ": ", current_month_pay)
     def display_creation_time(self):
         print(self.creation_time)
-    def display_note(self, id):
-        member = self.chitlist.get(id)
-        if not member:
-            print("Invalid ID")
-            return
-        print("Note for ", member.name, " is ", member.note)
-    def add_note(self):
+    def display_note(self):
         if(len(self.chitlist) < 1):
             print("There are no members.")
             return
@@ -110,6 +104,12 @@ class Chit:
         except ValueError:
             print("Invalid input.")
             return
+        member = self.chitlist.get(id)
+        if not member:
+            print("Invalid ID")
+            return
+        print("Note for ", member.name, " is ", member.note)
+    def add_note(self):
         member = self.chitlist.get(id)
         if not member:
             print("Invalid ID")
