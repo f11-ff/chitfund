@@ -31,6 +31,28 @@ class ChitManager:
         for i,chitlist in enumerate(self.chitlists):
             print(i+1,". chitlist ", chitlist.creation_time)
         return 1
+    def delete_chitlist(self):
+        self.display_chitlists()
+        try:
+            id = int(input("Enter an ID: "))
+        except ValueError:
+            print("Invalid input.")
+            return
+        while True:
+            choice = input("Are you sure you want to delete the list (Y/N): ")
+            if(choice.upper() == 'Y'):
+                try:
+                    self.chitlists.pop(id-1)
+                    print("Deleted successfully")
+                except IndexError:
+                    print("Invalid Index.")
+                    continue
+                return
+            elif(choice.upper() == 'N'):
+                print("Returning")
+                return
+            else:
+                print("Invalid choice.")
 class Chit:
     total_chit_lists = 0
     def __init__(self,chit_amount):
