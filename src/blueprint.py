@@ -44,6 +44,14 @@ class Chit:
         self.month = 1 #Keep tracks of current month
         Chit.total_chit_lists += 1
     def remove(self,i):
+        """
+        Docstring for remove
+        
+        :param self: Object
+        :param i: index of the member to be removed
+        
+        Use: After a member wins, this method is used to remove a member.
+        """
         self.not_winners[i] = self.not_winners[-1]
         if not len(self.not_winners) == 0:
             self.not_winners.pop()
@@ -93,7 +101,12 @@ class Chit:
             print("Invalid ID")
             return
         print("Note for ", member.name, " is ", member.note)
-    def add_note(self, id):
+    def add_note(self):
+        try:
+            id = int(input("Enter an ID: "))
+        except ValueError:
+            print("Invalid input.")
+            return
         member = self.chitlist.get(id)
         if not member:
             print("Invalid ID")
@@ -124,7 +137,8 @@ class Chit:
         print("Set ",winner.name, " as winner")
         self.winners_map[self.month] = winner
         self.month += 1
-
+    def update_member_info(self):
+        pass
 class Member:
     def __init__(self,name,note = ""):
         self.name = name
