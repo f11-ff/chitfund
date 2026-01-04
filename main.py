@@ -7,6 +7,14 @@ def add_members(chitlist):
     except ValueError:
         print("Invalid value. ")
         return
+    chit_amount = chitlist.chit_amount
+    valid_total_members = ChitManager.tally(chit_amount) - len(chitlist.chitlist)
+    if n < 1:
+        print("Trying to add too less members! Returning")
+        return
+    if n > valid_total_members:
+        print("Trying to add too many members! Returning")
+        return
     for i in range(n):
         chitlist.add_member()
 
@@ -60,8 +68,16 @@ def main():
                 if not chit_manager.display_chitlists():
                     print("There is no list please make one.")
                     continue
-                i = int(input("Enter an id (left index is id): "))
-                chitlist_operations(chit_manager.chitlists[i-1])
+                try:
+                    i = int(input("Enter an id (left index is id): "))
+                    chitlist_operations(chit_manager.chitlists[i-1])
+                except ValueError:
+                    print("Invalid Input Returning")
+                    continue
+                except IndexError: 
+                    print("Invalid Index, please choose an existing list") 
+                    continue
+
             case '4':
                 chit_manager.delete_chitlist()
             case '444':
