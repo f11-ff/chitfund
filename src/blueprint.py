@@ -15,7 +15,7 @@ class ChitManager:
         self.chitlists = []
     def create_chitlist(self):
         try:
-            chit_amount = int(input("Enter 1 or 2 or 2.5 or 5: "))
+            chit_amount = float(input("Enter 1 or 2 or 2.5 or 5: "))
             if not ChitManager.tally(chit_amount):
                return
         except ValueError:
