@@ -79,11 +79,14 @@ class Chit:
             self.not_winners.pop()
         return
     def add_member(self):
-        if len(self.chitlist) >= ChitManager.tally(self.chit_amount):
+        if len(self.chitlist) >= ChitManager.tally(self.chit_amount): #unneccessary since I am checking valid member range in main.py
             print("Max Member Reached.. Returning..")
             return
         while True:
-            name = input("Enter name: ")
+            name = input("Enter name (press enter to cancel): ")
+            if not name:
+                print("Empty string.. returning")
+                return
             if name in self.names_set:
                 print("Name exists! Please check the name and/or modify it.")
             else:
