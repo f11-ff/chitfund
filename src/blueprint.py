@@ -191,7 +191,9 @@ class Chit:
         if not name:
             print("Invalid name")
             return
+        self.names_set.remove(member.name)
         member.name = name
+        self.names_set.add(member.name)
         print("Updated successfully")
         return
 
