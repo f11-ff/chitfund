@@ -173,8 +173,28 @@ class Chit:
         print("Set ",winner.name, " as winner")
         self.winners_map[self.month] = winner
         self.month += 1
-    def update_member_info(self):
-        pass
+    def update_member_name(self):
+        self.display_members()
+        if(len(self.chitlist) < 1):
+            print("There are no members.")
+            return
+        try:
+            id = int(input("Enter an ID: "))
+        except ValueError:
+            print("Invalid input.")
+            return
+        member = self.chitlist.get(id)
+        if not member:
+            print("Invalid ID")
+            return
+        name = input("Enter a name: ")
+        if not name:
+            print("Invalid name")
+            return
+        member.name = name
+        print("Updated successfully")
+        return
+
 class Member:
     def __init__(self,name,note = ""):
         self.name = name
