@@ -21,7 +21,7 @@ def add_members(chitlist):
 def chitlist_operations(chitlist):
     while True:
         print("---")
-        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n6. View creation time\n7. View outstading fees\n8. Add/update note\n9. Display note\n444.Exit")
+        print("1. Add Members\n2. Show Members\n3. Ongoing month\n4. Lottery\n5. Set month\n6. View creation time\n7. View outstading fees\n8. Add/update note\n9. Display note\n10. Update Name of Name\n444.Exit")
         print("---")
         choice = input()
 
@@ -46,6 +46,8 @@ def chitlist_operations(chitlist):
             case '9':
                 chitlist.display_members()
                 chitlist.display_note()
+            case '10':
+                chitlist.update_member_name()
             case '444':
                 return
             case _:
